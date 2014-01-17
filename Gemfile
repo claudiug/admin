@@ -21,7 +21,6 @@ gem 'pony'
 gem 'state_machine'
 gem 'whenever', :require => false
 # gem "searchkick", github: "ankane/searchkick"
-gem "searchkick", github: "gotar/searchkick"
 gem 'geocoder'
 gem 'nokogiri'
 

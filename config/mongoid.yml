@@ -1,0 +1,13 @@
+test:
+  sessions:
+    default:
+      database: trip-service-api
+      hosts:
+        - localhost:27017
+
+development:
+  sessions:
+    default:
+      database: trip-service-api-dev
+      hosts:
+        - localhost:27017
