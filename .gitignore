@@ -1,0 +1,6 @@
+coverage/
+public/uploads/
+.DS_Store
+log/
+bin/
+*swp

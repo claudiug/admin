@@ -1,0 +1,42 @@
+box: wercker/ubuntu12.04-ruby2.0.0
+# Build definition
+# See the Rails section on the wercker devcenter:
+# http://devcenter.wercker.com/articles/languages/ruby/rails-heroku.html
+# You will want to define your database as follows: 
+# services:
+#   - wercker/postgresql
+# See more about services on our devcenter:
+# http://devcenter.wercker.com/articles/services/
+services:
+    - wercker/mongodb
+build:
+    # The steps that will be executed on build
+    steps:
+        # A step that executes `bundle install` command
+        - bundle-install
+        # A step that prepares the database.yml using the database in services
+        #- rails-database-yml
+        # A custom script step, name value is used in the UI
+        # and the code value contains the command that get executed
+        - script:
+            name: echo ruby information
+            code: |
+                echo "ruby version $(ruby --version) running"
+                echo "from location $(which ruby)"
+                echo -p "gem list: $(gem list)"
+        script: |
+            sudo apt-get update
+            sudo apt-get upgrade
+            sudo wget -O /tmp/elasticsearch-0.90.2.deb https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.2.deb
+            sudo dpkg -i /tmp/elasticsearch-0.90.2.deb
+            sudo sed -i 's/# http.enabled: false/http.enabled: true/g' /etc/elasticsearch/elasticsearch.yml
+            sudo sed -i 's/# network.host: 192.168.0.1/network.host: $$HOST$$/g' /etc/elasticsearch/elasticsearch.yml
+        env:
+            WERCKER_ELASTICSEARCH_PORT: 9200
+            WERCKER_ELASTICSEARCH_HOST: $$HOST$$
+            WERCKER_ELASTICSEARCH_URL: $$HOST$$:9200
+            WERCKER_ELASTICSEARCH_VERSION: 0.90.2
+        # Add more steps here:
+        - script:
+                name: rspec
+                code: bundle exec rspec
