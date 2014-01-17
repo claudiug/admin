@@ -17,11 +17,7 @@ gem 'mongoid-tree', require: 'mongoid/tree'
 gem 'mongoid_auto_increment'
 gem 'bson_ext'
 gem 'bcrypt-ruby', require: 'bcrypt'
-gem 'will_paginate', github: 'mislav/will_paginate', branch: 'master'
 gem 'pony'
-gem "rmagick", "~> 2.13.2", require: false
-gem 'hipchat-api'
-gem 'newrelic_rpm', :group => :production
 gem 'state_machine'
 gem 'whenever', :require => false
 # gem "searchkick", github: "ankane/searchkick"
